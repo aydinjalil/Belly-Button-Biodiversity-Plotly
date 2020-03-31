@@ -21,29 +21,18 @@ function init(){
 
 function meta_data(id){
 	d3.json("../../samples.json").then((sampleNames)=>{
-		// sampleNames.metadata.forEach((meta)=>{
-		// 	var met_cond = meta.meta === id;
-		// 	// console.log(meta[met_cond]);
-		// });
+		sampleNames.metadata.forEach((meta)=>{
+			if (meta.id === parseInt(id)) {
+				var div_metadata = d3.select("#sample-metadata");
+				div_metadata.html("");
 
-		// div_metadata = d3.select("#sample-metadata");
-		// div_metadata.html("");
-
-		// Object.entries(sampleNames).forEach(function([key, value]){
-		// 	var row = div_metadata.append("p");
-		// 	row.text(key + ": " + value);
-		// })	
-		var div_metadata = d3.select("#sample-metadata");
-			div_metadata.html("");
-			Object.entries(meta).forEach(([key, value])=>{
-				console.log(key + ": " + value);
-				if (key  === "id" && value === "940") {
+				Object.entries(meta).forEach(([key, value])=>{
 					var row = div_metadata.append("p");
 					row.text(key + ": " + value);
-				}
-
-			});
-	})
+				});
+			};
+		});
+	});
 	
 }
 
@@ -105,9 +94,8 @@ function chart(id){
 }
 function optionChanged(new_id) {
 
-	// 
-	chart(id);
-	meta_data(id);
+	chart(new_id);
+	meta_data(new_id);
 };
 init();
 
