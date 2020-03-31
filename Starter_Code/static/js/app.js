@@ -53,6 +53,7 @@ function chart(id){
 					var x_data = [];
 					var y_data = [];
 					var labels = [];
+					var bubble_x = [];
 					switch(sample.id){
 						case id: 
 							sample.otu_ids.forEach((otu_id)=>{
@@ -64,10 +65,14 @@ function chart(id){
 							sample.otu_labels.forEach((otu_label)=>{
 								labels.push(otu_label);
 							});
-
+							sample.otu_ids.forEach((otu_id)=>{
+								bubble_x.push(otu_id);
+							});
+							console.log(bubble_x);
 							console.log(y_data);
 
-							var data = [{
+							// Separate data for bar_chart
+							var bar_data = [{
 							type: "bar",
 					    	x: y_data.slice(0,10).reverse(),
 					    	y: x_data.slice(0,10).reverse(),
@@ -79,11 +84,31 @@ function chart(id){
 					    		width: 1
 					    	},
 					   	 	orientation: "h",
-					   	 	// rotation: 90
   						}];
 
-  				Plotly.newPlot("bar", data);
-						// console.log(x_data);
+  						// Separate data for bubble chart
+  						var bubble_data = [{
+  							type: "scatter",
+  							y: y_data,
+					    	x: bubble_x,
+					    	mode: "markers",
+					    	text: labels,
+					    	marker: {
+					    		color: (bubble_x),
+					    		size: (y_data),
+					    		// sizemode: 'area'
+					    	},
+  						}];
+
+  						var bubble_layout = {
+								  title: 'Bubble Chart',
+								  showlegend: false,
+								  height: 600,
+								  width: 600
+								};
+  				// Plot bar_chart
+  				Plotly.newPlot("bar", bar_data);
+  				Plotly.newPlot("bubble", bubble_data);
 						break;
 					}	
 			
