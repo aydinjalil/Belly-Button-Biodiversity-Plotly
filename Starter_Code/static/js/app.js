@@ -44,49 +44,48 @@ function meta_data(id){
 
 
 function chart(id){
-	console.log(id);
-	
-	d3.json("../../samples.json").then((sample_collection) => {
-		// Object.entries(sample_collection.samples).forEach(([key, value])=>{
-		// 	console.log(key + ": " + value);
-		// });
-		
-		sample_collection.samples.forEach((otu)=>{
-			// var otu_ids;
-			// var sample_values;
-			// var labels;
+	d3.json("../../samples.json").then((sampleNames) => {
 
-			Object.entries(otu).forEach(([key, value])=>{
-				if (key  === "id" && value === id) {
-					var x_data = otu.otu_ids.slice(0,10);
-					var y_data = otu.sample_values.slice(0,10)
-					// var x_reversed = x_data.reverse();
-					// console.log(x_reversed);
-					var data = [{
-				    	x: x_data,
-				    	y: y_data,
-				    	mode: "markers",
-				    	text: otu.otu_labels,
-				    	marker: {
-				    		// color: (otu.otu_ids),
-				    		size: (otu.sample_values).slice(0,10)
-				    		// width: 1
-				    	},
-				   	 	type: "bar",
-				   	 	// orientation: "h",
-				   	 	rotation: 90
-  				}];
+		sampleNames.samples.forEach((sample)=>{
 
-  				var layout = {
-  					xaxis:{type: 'category'}
-  				};
+			// Bar Chart Plotly code
 
-  				Plotly.newPlot("bar", data, layout);
-				}
+					var x_data = [];
+					var y_data = [];
+					var labels = [];
+					switch(sample.id){
+						case id: 
+							sample.otu_ids.forEach((otu_id)=>{
+								x_data.push("OTU " + otu_id);
+							});
+							sample.sample_values.forEach((sample_values)=>{
+								y_data.push(sample_values);
+							});
+							sample.otu_labels.forEach((otu_label)=>{
+								labels.push(otu_label);
+							});
 
-			});
+							console.log(y_data);
 
-				
+							var data = [{
+							type: "bar",
+					    	x: y_data.slice(0,10).reverse(),
+					    	y: x_data.slice(0,10).reverse(),
+					    	mode: "markers",
+					    	text: labels.slice(0,10),
+					    	marker: {
+					    		// color: (otu.otu_ids),
+					    		size: (y_data.slice(0,10)),
+					    		width: 1
+					    	},
+					   	 	orientation: "h",
+					   	 	// rotation: 90
+  						}];
+
+  				Plotly.newPlot("bar", data);
+						// console.log(x_data);
+						break;
+					}	
 			
 		});
 	});
