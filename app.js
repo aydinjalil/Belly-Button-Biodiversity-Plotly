@@ -2,7 +2,7 @@
 function init(){
 	var selector = d3.select("#selDataset");
 
-	d3.json("../../samples.json").then((sampleNames) => {
+	d3.json("samples.json").then((sampleNames) => {
 		sampleNames.names.forEach((sample) => {
 			selector.append("option")
 			.text(sample)
@@ -16,7 +16,7 @@ function init(){
 
 
 function meta_data(id){
-	d3.json("../../samples.json").then((sampleNames)=>{
+	d3.json("samples.json").then((sampleNames)=>{
 		sampleNames.metadata.forEach((meta)=>{
 			if (meta.id === parseInt(id)) {
 				var div_metadata = d3.select("#sample-metadata");
@@ -92,7 +92,7 @@ function meta_data(id){
 
 
 function chart(id){
-	d3.json("../../samples.json").then((sampleNames) => {
+	d3.json("samples.json").then((sampleNames) => {
 
 		sampleNames.samples.forEach((sample)=>{
 
