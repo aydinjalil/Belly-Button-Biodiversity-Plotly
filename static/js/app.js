@@ -1,8 +1,4 @@
 
-
-// console.log(sample_data);
-
-
 function init(){
 	var selector = d3.select("#selDataset");
 
@@ -30,17 +26,17 @@ function meta_data(id){
 					var row = div_metadata.append("p");
 					row.text(key + ": " + value);
 				});
+
+				
 			};
+
+			// BONUS TASK - Gauge chart
+			
+			console.log(meta.wfreq);
 		});
 	});
 	
 }
-
-// function filter(data){
-// 	var filtered_data = ufo_data.filter(function(_data) {
-// 				return _data.country === input.property("value");
-// 			});
-// }
 
 
 function chart(id){
@@ -68,8 +64,6 @@ function chart(id){
 							sample.otu_ids.forEach((otu_id)=>{
 								bubble_x.push(otu_id);
 							});
-							console.log(bubble_x);
-							console.log(y_data);
 
 							// Separate data for bar_chart
 							var bar_data = [{
@@ -106,6 +100,8 @@ function chart(id){
 								  height: 600,
 								  width: 600
 								};
+
+
   				// Plot bar_chart
   				Plotly.newPlot("bar", bar_data);
   				Plotly.newPlot("bubble", bubble_data);
