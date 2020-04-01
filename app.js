@@ -147,17 +147,17 @@ function chart(id){
   						}];
 
   						var bubble_layout = {
-								  title: 'Bubble Chart',
-								  showlegend: false,
-								  height: 600,
-								  width: 600
-								  // xaxis: {text: "OTU_ID"}
+								title: "Belly Button Bacteria",
+      							xaxis: {title: "OTU ID"},
+								showlegend: false
+								// height: 600,
+								// width: 1000
 								};
 
 
   				// Plot bar_chart
   				Plotly.newPlot("bar", bar_data);
-  				Plotly.newPlot("bubble", bubble_data);
+  				Plotly.newPlot("bubble", bubble_data, bubble_layout);
 						break;
 					}	
 			
